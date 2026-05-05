@@ -429,6 +429,44 @@
     z-index: 1;
   }
 
+  /* MAINTENANCE CARD */
+  .product-card.maintenance {
+    pointer-events: none;
+    opacity: 0.6;
+    position: relative;
+  }
+
+  .product-card.maintenance .card-title,
+  .product-card.maintenance .price-php,
+  .product-card.maintenance .price-usd,
+  .product-card.maintenance .price-label,
+  .product-card.maintenance .card-features li {
+    text-decoration: line-through;
+    text-decoration-color: rgba(255,80,80,0.7);
+  }
+
+  .maintenance-banner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background: rgba(255,60,60,0.12);
+    border: 1px solid rgba(255,60,60,0.35);
+    border-radius: 10px;
+    padding: 8px 14px;
+    margin-bottom: 14px;
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    color: #ff6b6b;
+    letter-spacing: 1px;
+  }
+
+  .product-card.maintenance .buy-btn {
+    background: #444;
+    color: #888;
+    cursor: not-allowed;
+  }
+
   /* Animations */
   @keyframes fadeUp {
     from { opacity: 0; transform: translateY(24px); }
@@ -476,146 +514,28 @@
 
   <div class="products-grid">
 
-    <!-- Google One AI Ultra Family -->
-    <a class="product-card" style="--card-accent:#f59e0b" 
-       href="https://telegram.me/takusuu?text=Hi!%20I%20want%20to%20buy%3A%20Google%20One%20AI%20Ultra%20Family%20Plan%20-%203%2C499php%2F58%24" target="_blank">
-      <span class="card-badge badge-warranty">✔ WARRANTY</span>
-      <span class="card-icon">🏆</span>
-      <div class="card-title">Google One AI Ultra Family Plan</div>
+    <!-- Super Grok 3 Days — ₱10 -->
+    <div class="product-card maintenance" style="--card-accent:#00f0a0">
+      <span class="card-badge badge-hot">🔧 MAINTENANCE</span>
+      <span class="card-icon">⚡</span>
+      <div class="maintenance-banner">🔧 UNDER MAINTENANCE — CURRENTLY UNAVAILABLE</div>
+      <div class="card-title">Super Grok — 3 Days</div>
       <ul class="card-features">
-        <li>Invite up to 5 users — share with family or friends</li>
-        <li>Google's most powerful AI (Gemini Ultra) included</li>
-        <li>2TB+ cloud storage shared across family</li>
-        <li>Priority Google support &amp; AI features</li>
-        <li>Covered with warranty</li>
+        <li>Try Grok AI for 3 days</li>
+        <li>Real-time web &amp; X (Twitter) search</li>
+        <li>Perfect for one-time tasks or testing</li>
       </ul>
       <div class="card-price">
-        <span class="price-php">₱3,499</span>
+        <span class="price-php">₱10</span>
         <div>
-          <div class="price-usd">≈ $58</div>
-          <div class="price-label">FAMILY / 5 SLOTS</div>
+          <div class="price-usd">≈ $0.20</div>
+          <div class="price-label">3 DAYS TRIAL</div>
         </div>
       </div>
-      <div class="buy-btn">ORDER VIA TELEGRAM →</div>
-    </a>
+      <div class="buy-btn">UNDER MAINTENANCE</div>
+    </div>
 
-    <!-- Veo 3 Ultra Own Email -->
-    <a class="product-card" style="--card-accent:#a78bfa"
-       href="https://telegram.me/takusuu?text=Hi!%20I%20want%20to%20buy%3A%20Veo%203%20Ultra%20(Own%20Email)%201%20Month%20-%20899php%2F15%24" target="_blank">
-      <span class="card-badge badge-warranty">✔ WARRANTY</span>
-      <span class="card-icon">🎬</span>
-      <div class="card-title">Veo 3 Ultra — Own Email 1 Month</div>
-      <ul class="card-features">
-        <li>Use your own Google account / email</li>
-        <li>Unlimited AI video generation (Veo 3)</li>
-        <li>Google's most advanced video AI model</li>
-        <li>Generate cinematic, high-quality videos with audio</li>
-        <li>1 month access with warranty</li>
-      </ul>
-      <div class="card-price">
-        <span class="price-php">₱899</span>
-        <div>
-          <div class="price-usd">≈ $15</div>
-          <div class="price-label">1 MONTH</div>
-        </div>
-      </div>
-      <div class="buy-btn">ORDER VIA TELEGRAM →</div>
-    </a>
-
-    <!-- Gemini One Family -->
-    <a class="product-card" style="--card-accent:#60a5fa"
-       href="https://telegram.me/takusuu?text=Hi!%20I%20want%20to%20buy%3A%20Gemini%20One%20Family%20-%20499php%2F8.5%24" target="_blank">
-      <span class="card-badge badge-warranty">✔ WARRANTY UPON ACTIVATION</span>
-      <span class="card-icon">💎</span>
-      <div class="card-title">Gemini One Family</div>
-      <ul class="card-features">
-        <li>✉️ Use your own Google account / email</li>
-        <li>🔥 POPULAR — Best value family plan</li>
-        <li>Full Gemini Advanced access (2.5 Pro Ultra)</li>
-        <li>Invite up to 5 members — share with family or friends</li>
-        <li>2TB Google One storage shared across members</li>
-        <li>Gemini in Gmail, Docs, Drive, Meet &amp; all Google apps</li>
-        <li>Google Labs AI Tools access included</li>
-        <li>1,000 AI credits/month — auto-refills every month</li>
-        <li>Priority AI features &amp; early access to new tools</li>
-      </ul>
-      <div class="card-price">
-        <span class="price-php">₱499</span>
-        <div>
-          <div class="price-usd">≈ $8.50</div>
-          <div class="price-label">FAMILY / 5 MEMBERS</div>
-        </div>
-      </div>
-      <div class="buy-btn">ORDER VIA TELEGRAM →</div>
-    </a>
-
-    <!-- Gemini Pro 1 Year -->
-    <a class="product-card" style="--card-accent:#34d399"
-       href="https://telegram.me/takusuu?text=Hi!%20I%20want%20to%20buy%3A%20Gemini%20Pro%201%20Year%20-%20299php%2F5%24" target="_blank">
-      <span class="card-badge badge-warranty">✔ 3 MONTHS WARRANTY</span>
-      <span class="card-icon">⭐</span>
-      <div class="card-title">Gemini Pro — 1 Year</div>
-      <ul class="card-features">
-        <li>Full year of Gemini Pro access</li>
-        <li>Gemini in Gmail, Docs, Drive &amp; more</li>
-        <li>Advanced AI features for work &amp; school</li>
-        <li>3-month warranty included</li>
-      </ul>
-      <div class="card-price">
-        <span class="price-php">₱299</span>
-        <div>
-          <div class="price-usd">≈ $5</div>
-          <div class="price-label">1 YEAR</div>
-        </div>
-      </div>
-      <div class="buy-btn">ORDER VIA TELEGRAM →</div>
-    </a>
-
-    <!-- Veo 3 Ultra Shared -->
-    <a class="product-card" style="--card-accent:#e879f9"
-       href="https://telegram.me/takusuu?text=Hi!%20I%20want%20to%20buy%3A%20Veo%203%20Ultra%20Shared%20-%20100php" target="_blank">
-      <span class="card-badge badge-warranty">✔ 20HR WARRANTY</span>
-      <span class="card-icon">🎥</span>
-      <div class="card-title">Veo 3 Ultra</div>
-      <ul class="card-features">
-        <li>Unlimited AI video generation (Veo 3 model)</li>
-        <li>Generate high-quality cinematic videos with audio</li>
-        <li>Google DeepMind's most advanced video AI</li>
-        <li>Prompt-to-video in seconds — no editing skills needed</li>
-      </ul>
-      <div class="card-price">
-        <span class="price-php">₱100</span>
-        <div>
-          <div class="price-usd">≈ $2</div>
-          <div class="price-label">MONTHLY</div>
-        </div>
-      </div>
-      <div class="buy-btn">ORDER VIA TELEGRAM →</div>
-    </a>
-
-    <!-- Super Grok AI -->
-    <a class="product-card" style="--card-accent:#fb923c"
-       href="https://telegram.me/takusuu?text=Hi!%20I%20want%20to%20buy%3A%20Super%20Grok%20AI%20-%20200php%2F3.50%24" target="_blank">
-      <span class="card-badge badge-warranty">✔ WARRANTY</span>
-      <span class="card-icon">🤖</span>
-      <div class="card-title">Super Grok AI</div>
-      <ul class="card-features">
-        <li>Access to xAI's Grok — real-time X (Twitter) data</li>
-        <li>Uncensored, unfiltered AI responses</li>
-        <li>Image generation with Aurora</li>
-        <li>Think mode for deep reasoning</li>
-      </ul>
-      <div class="card-price">
-        <span class="price-php">₱200</span>
-        <div>
-          <div class="price-usd">≈ $3.50</div>
-          <div class="price-label">MONTHLY</div>
-        </div>
-      </div>
-      <div class="buy-btn">ORDER VIA TELEGRAM →</div>
-    </a>
-
-    <!-- CapCut Pro -->
+    <!-- CapCut Pro — ₱50 -->
     <a class="product-card" style="--card-accent:#f472b6"
        href="https://telegram.me/takusuu?text=Hi!%20I%20want%20to%20buy%3A%20CapCut%20Pro%2030%20Days%20-%2050php%2F1%24" target="_blank">
       <span class="card-badge badge-warranty">✔ WARRANTY</span>
@@ -637,7 +557,7 @@
       <div class="buy-btn">ORDER VIA TELEGRAM →</div>
     </a>
 
-    <!-- Surfshark VPN -->
+    <!-- Surfshark VPN — ₱50 -->
     <a class="product-card" style="--card-accent:#1fd5c2"
        href="https://telegram.me/takusuu?text=Hi!%20I%20want%20to%20buy%3A%20Surfshark%20VPN%202%20Months%20-%2050php%2F1%24" target="_blank">
       <span class="card-badge badge-warranty">✔ WARRANTY</span>
@@ -660,22 +580,114 @@
       <div class="buy-btn">ORDER VIA TELEGRAM →</div>
     </a>
 
-    <!-- Super Grok 3 Days -->
-    <a class="product-card" style="--card-accent:#00f0a0"
-       href="https://telegram.me/takusuu?text=Hi!%20I%20want%20to%20buy%3A%20Super%20Grok%203%20Days%20-%2010php%2F0.2%24" target="_blank">
-      <span class="card-badge badge-hot">⚡ TRIAL</span>
-      <span class="card-icon">⚡</span>
-      <div class="card-title">Super Grok — 3 Days</div>
+    <!-- Veo 3 Ultra Shared — ₱100 -->
+    <a class="product-card" style="--card-accent:#e879f9"
+       href="https://telegram.me/takusuu?text=Hi!%20I%20want%20to%20buy%3A%20Veo%203%20Ultra%20Shared%20-%20100php" target="_blank">
+      <span class="card-badge badge-warranty">✔ 20HR WARRANTY</span>
+      <span class="card-icon">🎥</span>
+      <div class="card-title">Veo 3 Ultra</div>
       <ul class="card-features">
-        <li>Try Grok AI for 3 days</li>
-        <li>Real-time web &amp; X (Twitter) search</li>
-        <li>Perfect for one-time tasks or testing</li>
+        <li>Unlimited AI video generation (Veo 3 model)</li>
+        <li>Generate high-quality cinematic videos with audio</li>
+        <li>Google DeepMind's most advanced video AI</li>
+        <li>Prompt-to-video in seconds — no editing skills needed</li>
       </ul>
       <div class="card-price">
-        <span class="price-php">₱10</span>
+        <span class="price-php">₱100</span>
         <div>
-          <div class="price-usd">≈ $0.20</div>
-          <div class="price-label">3 DAYS TRIAL</div>
+          <div class="price-usd">≈ $2</div>
+          <div class="price-label">MONTHLY</div>
+        </div>
+      </div>
+      <div class="buy-btn">ORDER VIA TELEGRAM →</div>
+    </a>
+
+    <!-- Super Grok AI — ₱200 -->
+    <a class="product-card" style="--card-accent:#fb923c"
+       href="https://telegram.me/takusuu?text=Hi!%20I%20want%20to%20buy%3A%20Super%20Grok%20AI%20-%20200php%2F3.50%24" target="_blank">
+      <span class="card-badge badge-warranty">✔ WARRANTY</span>
+      <span class="card-icon">🤖</span>
+      <div class="card-title">Super Grok AI</div>
+      <ul class="card-features">
+        <li>Access to xAI's Grok — real-time X (Twitter) data</li>
+        <li>Uncensored, unfiltered AI responses</li>
+        <li>Image generation with Aurora</li>
+        <li>Think mode for deep reasoning</li>
+      </ul>
+      <div class="card-price">
+        <span class="price-php">₱200</span>
+        <div>
+          <div class="price-usd">≈ $3.50</div>
+          <div class="price-label">MONTHLY</div>
+        </div>
+      </div>
+      <div class="buy-btn">ORDER VIA TELEGRAM →</div>
+    </a>
+
+    <!-- Veo 3 Ultra 30 Days Warranty — ₱699 -->
+    <a class="product-card" style="--card-accent:#e879f9"
+       href="https://telegram.me/takusuu?text=Hi!%20I%20want%20to%20buy%3A%20Veo%203%20Ultra%2030%20Days%20Warranty%20-%20699php%2F11.3%24" target="_blank">
+      <span class="card-badge badge-warranty">✔ 30 DAYS WARRANTY</span>
+      <span class="card-icon">🎥</span>
+      <div class="card-title">Veo 3 Ultra — 30 Days Warranty</div>
+      <ul class="card-features">
+        <li>Unlimited AI video generation (Veo 3 model)</li>
+        <li>Generate high-quality cinematic videos with audio</li>
+        <li>Google DeepMind's most advanced video AI</li>
+        <li>Prompt-to-video in seconds — no editing skills needed</li>
+        <li>Extended 30-day warranty included</li>
+      </ul>
+      <div class="card-price">
+        <span class="price-php">₱699</span>
+        <div>
+          <div class="price-usd">≈ $11.30</div>
+          <div class="price-label">30 DAYS WARRANTY</div>
+        </div>
+      </div>
+      <div class="buy-btn">ORDER VIA TELEGRAM →</div>
+    </a>
+
+    <!-- Veo 3 Ultra Own Email — ₱899 -->
+    <a class="product-card" style="--card-accent:#a78bfa"
+       href="https://telegram.me/takusuu?text=Hi!%20I%20want%20to%20buy%3A%20Veo%203%20Ultra%20(Own%20Email)%201%20Month%20-%20899php%2F15%24" target="_blank">
+      <span class="card-badge badge-warranty">✔ WARRANTY</span>
+      <span class="card-icon">🎬</span>
+      <div class="card-title">Veo 3 Ultra — Own Email 1 Month</div>
+      <ul class="card-features">
+        <li>Use your own Google account / email</li>
+        <li>Unlimited AI video generation (Veo 3)</li>
+        <li>Google's most advanced video AI model</li>
+        <li>Generate cinematic, high-quality videos with audio</li>
+        <li>1 month access with warranty</li>
+      </ul>
+      <div class="card-price">
+        <span class="price-php">₱899</span>
+        <div>
+          <div class="price-usd">≈ $15</div>
+          <div class="price-label">1 MONTH</div>
+        </div>
+      </div>
+      <div class="buy-btn">ORDER VIA TELEGRAM →</div>
+    </a>
+
+    <!-- Google One AI Ultra Family — ₱3,499 -->
+    <a class="product-card" style="--card-accent:#f59e0b" 
+       href="https://telegram.me/takusuu?text=Hi!%20I%20want%20to%20buy%3A%20Google%20One%20AI%20Ultra%20Family%20Plan%20-%203%2C499php%2F58%24" target="_blank">
+      <span class="card-badge badge-warranty">✔ WARRANTY</span>
+      <span class="card-icon">🏆</span>
+      <div class="card-title">Google One AI Ultra Family Plan</div>
+      <ul class="card-features">
+        <li>Invite up to 5 users — share with family or friends</li>
+        <li>Google's most powerful AI (Gemini Ultra) included</li>
+        <li>2TB+ cloud storage shared across family</li>
+        <li>Priority Google support &amp; AI features</li>
+        <li>Covered with warranty</li>
+      </ul>
+      <div class="card-price">
+        <span class="price-php">₱3,499</span>
+        <div>
+          <div class="price-usd">≈ $58</div>
+          <div class="price-label">FAMILY / 5 SLOTS</div>
         </div>
       </div>
       <div class="buy-btn">ORDER VIA TELEGRAM →</div>
