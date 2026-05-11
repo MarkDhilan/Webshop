@@ -7,871 +7,671 @@
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Rajdhani:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
 :root {
-  --bg: #04040a;
-  --surface: #080812;
-  --card: #0b0b18;
+  --bg: #06050f;
   --purple: #7c2de8;
   --purple2: #a855f7;
-  --purple3: #6d1fd4;
+  --purple3: #5b1ab8;
   --green: #10a37f;
   --green2: #00ffb3;
   --gold: #f5c518;
-  --pink: #f472b6;
-  --cyan: #22d3ee;
-  --orange: #fb923c;
   --text: #ffffff;
-  --muted: #7070a0;
-  --border: rgba(124,45,232,0.25);
+  --muted: #9090b8;
 }
 
-* { margin:0; padding:0; box-sizing:border-box; }
-
-html { scroll-behavior: smooth; }
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
 
 body {
-  background: var(--bg);
-  color: var(--text);
-  font-family: 'Rajdhani', sans-serif;
-  min-height: 100vh;
+  background: #06050f;
+  background-image:
+    radial-gradient(ellipse 80% 55% at 50% 0%, rgba(80,20,180,0.45) 0%, transparent 65%),
+    radial-gradient(ellipse 60% 40% at 85% 85%, rgba(16,163,127,0.12) 0%, transparent 55%);
+  color: #ffffff;
+  font-family: 'Rajdhani', 'Arial', sans-serif;
   overflow-x: hidden;
-  cursor: default;
+  min-height: 100vh;
 }
 
-/* ─── BACKGROUND LAYERS ─── */
-.bg-layer {
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 0;
+/* ── BACKGROUND ── */
+.bg-fixed {
+  position: fixed; inset: 0;
+  pointer-events: none; z-index: 0; overflow: hidden;
+}
+.bg-fixed::before {
+  content: '';
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 80% 55% at 50% 0%, rgba(80,20,180,0.3) 0%, transparent 65%),
+    radial-gradient(ellipse 60% 40% at 85% 85%, rgba(16,163,127,0.1) 0%, transparent 55%);
+}
+.bg-fixed::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(0,0,0,0.06) 3px, rgba(0,0,0,0.06) 4px);
 }
 
-/* Animated purple blobs */
-.blob {
-  position: fixed;
-  border-radius: 50%;
-  filter: blur(90px);
-  pointer-events: none;
-  z-index: 0;
-}
-.blob1 {
-  width: 700px; height: 700px;
-  background: radial-gradient(circle, rgba(124,45,232,0.18) 0%, transparent 70%);
-  top: -200px; left: -200px;
-  animation: blobDrift1 12s ease-in-out infinite alternate;
-}
-.blob2 {
-  width: 500px; height: 500px;
-  background: radial-gradient(circle, rgba(16,163,127,0.12) 0%, transparent 70%);
-  bottom: -100px; right: -100px;
-  animation: blobDrift2 15s ease-in-out infinite alternate;
-}
-.blob3 {
-  width: 400px; height: 400px;
-  background: radial-gradient(circle, rgba(168,85,247,0.1) 0%, transparent 70%);
-  top: 50%; left: 50%;
-  transform: translate(-50%,-50%);
-  animation: blobDrift3 10s ease-in-out infinite alternate;
-}
-
-@keyframes blobDrift1 {
-  from { transform: translate(0,0) scale(1); }
-  to   { transform: translate(60px,40px) scale(1.1); }
-}
-@keyframes blobDrift2 {
-  from { transform: translate(0,0) scale(1); }
-  to   { transform: translate(-40px,-60px) scale(1.15); }
-}
-@keyframes blobDrift3 {
-  from { transform: translate(-50%,-50%) scale(1); }
-  to   { transform: translate(-45%,-55%) scale(1.2); }
-}
-
-/* Diagonal slash lines across the whole page */
+/* Diagonal slashes */
 .slashes {
-  position: fixed;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-  overflow: hidden;
+  position: fixed; inset: 0;
+  pointer-events: none; z-index: 1; overflow: hidden;
 }
 .slashes::before {
   content: '';
   position: absolute;
-  width: 1px;
-  height: 200%;
-  top: -50%;
-  left: 22%;
-  background: linear-gradient(180deg, transparent 0%, rgba(124,45,232,0.35) 30%, rgba(0,255,179,0.2) 70%, transparent 100%);
-  transform: rotate(18deg);
+  width: 2px; height: 200%; top: -50%; left: 18%;
+  background: linear-gradient(180deg, transparent 0%, rgba(124,45,232,0.4) 35%, rgba(0,255,179,0.2) 65%, transparent 100%);
+  transform: rotate(20deg);
 }
 .slashes::after {
   content: '';
   position: absolute;
-  width: 1px;
-  height: 200%;
-  top: -50%;
-  right: 22%;
-  background: linear-gradient(180deg, transparent 0%, rgba(124,45,232,0.25) 40%, rgba(0,255,179,0.15) 70%, transparent 100%);
-  transform: rotate(-18deg);
+  width: 2px; height: 200%; top: -50%; right: 18%;
+  background: linear-gradient(180deg, transparent 0%, rgba(124,45,232,0.3) 40%, rgba(0,255,179,0.15) 65%, transparent 100%);
+  transform: rotate(-20deg);
 }
 
-/* Extra slash lines via JS-less approach */
-.slash-extra {
-  position: fixed;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-  overflow: hidden;
-}
-.slash-extra::before {
-  content: '';
-  position: absolute;
-  width: 1px;
-  height: 200%;
-  top: -50%;
-  left: 50%;
-  background: linear-gradient(180deg, transparent, rgba(100,30,200,0.1), transparent);
-  transform: rotate(15deg);
-}
-
-/* Scanline effect */
-.scanlines {
-  position: fixed;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-  background: repeating-linear-gradient(
-    0deg,
-    transparent,
-    transparent 2px,
-    rgba(0,0,0,0.08) 2px,
-    rgba(0,0,0,0.08) 4px
-  );
-}
-
-/* Noise grain */
-.grain {
-  position: fixed;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-  opacity: 0.04;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  background-size: 200px;
-}
-
-/* ─── LAYOUT ─── */
+/* ── LAYOUT ── */
 .container {
-  max-width: 1140px;
-  margin: 0 auto;
-  padding: 0 24px;
-  position: relative;
-  z-index: 2;
+  max-width: 1100px; margin: 0 auto; padding: 0 16px;
+  position: relative; z-index: 10;
 }
 
-/* ─── HEADER ─── */
-header {
-  position: relative;
-  z-index: 10;
-  padding: 40px 24px 0;
+/* ══════════════════════
+   HERO
+══════════════════════ */
+.hero {
+  position: relative; z-index: 10;
   text-align: center;
+  padding: 36px 16px 0;
   overflow: hidden;
+  min-height: 320px;
+  display: flex; flex-direction: column; align-items: center;
 }
 
-/* Big watermark text behind header */
-.header-watermark {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -40%);
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: clamp(80px, 18vw, 180px);
-  letter-spacing: 6px;
-  color: transparent;
-  -webkit-text-stroke: 1px rgba(124,45,232,0.12);
-  pointer-events: none;
-  user-select: none;
-  white-space: nowrap;
+
+
+.hero-content {
+  position: relative; z-index: 3;
+  display: flex; flex-direction: column; align-items: center;
 }
 
-.header-inner {
-  position: relative;
-  z-index: 2;
-  padding-bottom: 10px;
-}
-
-.live-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  background: rgba(124,45,232,0.12);
-  border: 1px solid rgba(124,45,232,0.4);
+/* Badge */
+.trust-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(124,45,232,0.14);
+  border: 1px solid rgba(168,85,247,0.5);
   color: var(--purple2);
   font-family: 'Space Mono', monospace;
-  font-size: 10px;
-  letter-spacing: 3px;
-  padding: 6px 16px;
-  border-radius: 100px;
-  margin-bottom: 24px;
-  animation: badgePulse 2.5s ease-in-out infinite;
+  font-size: 9px; letter-spacing: 3px;
+  padding: 7px 18px; border-radius: 100px;
+  margin-bottom: 20px;
+  animation: pulseBadge 2.5s ease-in-out infinite;
 }
-
-.live-badge .live-dot {
+.trust-badge .dot {
   width: 6px; height: 6px;
-  background: var(--green2);
-  border-radius: 50%;
+  background: var(--green2); border-radius: 50%;
   box-shadow: 0 0 8px var(--green2);
-  animation: dotBlink 1.2s ease-in-out infinite;
+  animation: blinkDot 1.2s ease-in-out infinite;
+}
+@keyframes pulseBadge {
+  0%,100% { box-shadow: 0 0 0 0 rgba(124,45,232,0.3); }
+  50%      { box-shadow: 0 0 0 10px rgba(124,45,232,0); }
+}
+@keyframes blinkDot {
+  0%,100% { opacity:1; } 50% { opacity:0.2; }
 }
 
-@keyframes badgePulse {
-  0%,100% { box-shadow: 0 0 0 0 rgba(124,45,232,0.25); }
-  50%      { box-shadow: 0 0 0 8px rgba(124,45,232,0); }
+/* Logo */
+.logo-wrap { position: relative; display: inline-block; margin-bottom: 8px; }
+.logo-wm {
+  position: absolute; top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(70px, 24vw, 170px);
+  letter-spacing: 8px; white-space: nowrap;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(124,45,232,0.1);
+  pointer-events: none; user-select: none; z-index: -1;
 }
-@keyframes dotBlink {
-  0%,100% { opacity: 1; }
-  50%      { opacity: 0.2; }
-}
-
-/* LOGO */
-.logo-wrap {
-  position: relative;
-  display: inline-block;
-  margin-bottom: 10px;
-}
-
 .logo {
   font-family: 'Bebas Neue', sans-serif;
-  font-size: clamp(72px, 16vw, 130px);
-  line-height: 0.9;
-  letter-spacing: 4px;
-  background: linear-gradient(135deg, #ffffff 0%, rgba(255,255,255,0.9) 40%, var(--green2) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  filter: drop-shadow(0 0 30px rgba(0,255,179,0.3));
-  animation: logoReveal 0.8s cubic-bezier(0.22,1,0.36,1) both;
+  font-size: clamp(68px, 22vw, 130px);
+  letter-spacing: 4px; line-height: 0.88;
+  background: linear-gradient(130deg, #ffffff 0%, #ddd8ff 40%, var(--green2) 100%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  filter: drop-shadow(0 0 28px rgba(0,255,179,0.35));
+  animation: logoIn 0.7s cubic-bezier(0.22,1,0.36,1) both;
 }
-
-/* Slash through logo */
-.logo-slash {
-  position: absolute;
-  top: 10%;
-  left: -5%;
-  width: 110%;
-  height: 100%;
-  pointer-events: none;
-  overflow: visible;
+.logo-slash-svg {
+  position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+  pointer-events: none; overflow: visible; z-index: 2;
+  width: 100%; height: 100%;
 }
-.logo-slash line {
-  stroke: rgba(0,255,179,0.5);
-  stroke-width: 2;
-  filter: drop-shadow(0 0 6px rgba(0,255,179,0.8));
-}
-
-@keyframes logoReveal {
-  from { opacity: 0; transform: skewX(-5deg) translateY(20px); }
-  to   { opacity: 1; transform: skewX(0) translateY(0); }
+@keyframes logoIn {
+  from { opacity:0; transform: skewX(-8deg) translateY(14px); }
+  to   { opacity:1; transform: skewX(0) translateY(0); }
 }
 
 .tagline {
-  font-size: 14px;
-  font-weight: 500;
-  letter-spacing: 3px;
-  color: var(--muted);
-  text-transform: uppercase;
-  margin-top: 10px;
-  animation: fadeUp 0.8s 0.2s ease both;
+  font-size: clamp(10px, 3vw, 13px); font-weight: 600;
+  letter-spacing: 3px; color: var(--muted);
+  text-transform: uppercase; margin-bottom: 10px;
+  animation: fadeUp 0.7s 0.15s ease both;
 }
-
-/* Stars decoration */
-.star-row {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
-  margin: 16px 0 0;
-  color: var(--purple2);
-  font-size: 14px;
-  letter-spacing: 2px;
+.hero-stars {
+  display: flex; align-items: center; gap: 10px;
+  color: var(--purple2); font-family: 'Space Mono', monospace;
+  font-size: 9px; letter-spacing: 2px;
+  animation: fadeUp 0.7s 0.25s ease both;
 }
-
-/* ─── PROMO BANNER ─── */
-.promo-banner {
-  margin: 40px auto 0;
-  max-width: 700px;
-  position: relative;
-  cursor: pointer;
-  animation: fadeUp 0.6s 0.3s ease both;
-}
-
-.promo-glow {
-  position: absolute;
-  inset: -2px;
-  border-radius: 18px;
-  background: linear-gradient(135deg, var(--purple), transparent 50%, var(--purple3));
-  z-index: -1;
-  filter: blur(3px);
-  opacity: 0.7;
-  animation: promoGlow 3s ease-in-out infinite alternate;
-}
-@keyframes promoGlow {
-  from { opacity: 0.5; filter: blur(3px); }
-  to   { opacity: 0.9; filter: blur(8px); }
-}
-
-.promo-inner {
-  background: linear-gradient(135deg, rgba(12,8,30,0.95), rgba(8,12,20,0.95));
-  border: 1px solid rgba(124,45,232,0.35);
-  border-radius: 16px;
-  padding: 22px 28px;
-  text-align: center;
-  transition: transform 0.2s;
-}
-
-.promo-banner:hover .promo-inner { transform: translateY(-3px); }
-
-.promo-inner h3 {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 22px;
-  letter-spacing: 3px;
-  color: #fff;
-  margin-bottom: 4px;
-}
-.promo-inner p {
-  color: var(--muted);
-  font-size: 13px;
-  font-weight: 500;
-}
-.promo-btn {
-  display: inline-block;
-  margin-top: 14px;
-  background: linear-gradient(90deg, var(--purple3), var(--purple));
-  color: #fff;
-  font-family: 'Space Mono', monospace;
-  font-size: 11px;
-  padding: 9px 22px;
-  border-radius: 8px;
-  text-decoration: none;
-  letter-spacing: 2px;
-  transition: opacity 0.2s, transform 0.1s;
-  box-shadow: 0 4px 20px rgba(124,45,232,0.4);
-}
-.promo-btn:hover { opacity: 0.85; transform: scale(0.98); }
-
-/* ─── SECTION TITLE ─── */
-.section-title-wrap {
-  text-align: center;
-  margin: 64px 0 36px;
-  position: relative;
-}
-
-.section-title {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 14px;
-  letter-spacing: 6px;
-  color: var(--purple2);
-  text-transform: uppercase;
-  margin-bottom: 8px;
-}
-
-.section-heading {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: clamp(36px, 6vw, 52px);
-  letter-spacing: 4px;
-  color: #fff;
-  line-height: 1;
-}
-
-.section-heading span {
-  color: transparent;
-  -webkit-text-stroke: 1px rgba(0,255,179,0.6);
-}
-
-.section-line {
-  width: 80px;
-  height: 2px;
-  background: linear-gradient(90deg, transparent, var(--purple), var(--green2), transparent);
-  margin: 16px auto 0;
-}
-
-/* ─── PRODUCTS GRID ─── */
-.products-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  gap: 22px;
-  padding-bottom: 30px;
-}
-
-/* ─── PRODUCT CARD ─── */
-.product-card {
-  position: relative;
-  border-radius: 20px;
-  text-decoration: none;
-  color: var(--text);
-  display: block;
-  overflow: hidden;
-  cursor: pointer;
-  transition: transform 0.3s cubic-bezier(0.22,1,0.36,1), box-shadow 0.3s;
-  animation: fadeUp 0.5s ease both;
-}
-
-.product-card:nth-child(1) { animation-delay: 0.05s; }
-.product-card:nth-child(2) { animation-delay: 0.10s; }
-.product-card:nth-child(3) { animation-delay: 0.15s; }
-.product-card:nth-child(4) { animation-delay: 0.20s; }
-.product-card:nth-child(5) { animation-delay: 0.25s; }
-.product-card:nth-child(6) { animation-delay: 0.30s; }
-.product-card:nth-child(7) { animation-delay: 0.35s; }
 
 @keyframes fadeUp {
-  from { opacity: 0; transform: translateY(28px); }
-  to   { opacity: 1; transform: translateY(0); }
+  from { opacity:0; transform:translateY(14px); }
+  to   { opacity:1; transform:translateY(0); }
 }
 
-/* Glow border */
-.card-border {
-  position: absolute;
-  inset: 0;
-  border-radius: 20px;
-  border: 1px solid var(--c-accent, rgba(124,45,232,0.3));
-  pointer-events: none;
-  z-index: 3;
-  transition: border-color 0.3s;
+/* ══════════════════════
+   PROMO
+══════════════════════ */
+.promo-wrap {
+  padding: 30px 0 0; z-index: 10; position: relative;
+  animation: fadeUp 0.6s 0.3s ease both;
+}
+.promo-box { position: relative; border-radius: 18px; overflow: hidden; cursor: pointer; transition: transform 0.2s; }
+.promo-box:hover { transform: translateY(-3px); }
+.promo-glow {
+  position: absolute; inset: -2px; border-radius: 20px;
+  background: linear-gradient(135deg, var(--purple3), transparent 50%, var(--purple));
+  z-index: -1; filter: blur(6px);
+  animation: glowPulse 3s ease-in-out infinite alternate;
+}
+@keyframes glowPulse { from { opacity:0.55; } to { opacity:1; filter:blur(10px); } }
+.promo-inner {
+  background: linear-gradient(135deg, rgba(10,6,28,0.97), rgba(6,10,20,0.97));
+  border: 1px solid rgba(124,45,232,0.4); border-radius: 18px;
+  padding: 20px 20px 22px; text-align: center;
+}
+.promo-inner h3 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(17px, 5vw, 22px); letter-spacing: 3px; color: #fff; margin-bottom: 4px;
+}
+.promo-inner p { color: var(--muted); font-size: 13px; font-weight: 500; }
+.promo-btn {
+  display: inline-block; margin-top: 14px;
+  background: linear-gradient(90deg, var(--purple3), var(--purple));
+  color: #fff; font-family: 'Space Mono', monospace;
+  font-size: 11px; letter-spacing: 2px; padding: 11px 26px;
+  border-radius: 10px; text-decoration: none;
+  box-shadow: 0 4px 24px rgba(124,45,232,0.45);
+  transition: opacity 0.2s, transform 0.1s;
+}
+.promo-btn:hover { opacity:.85; transform:scale(0.98); }
+
+/* ══════════════════════
+   SECTION HEAD
+══════════════════════ */
+.section-head { text-align: center; padding: 52px 0 28px; position: relative; z-index: 10; }
+.section-eye {
+  font-family: 'Space Mono', monospace;
+  font-size: 10px; letter-spacing: 5px; color: var(--purple2); margin-bottom: 8px;
+}
+.section-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(34px, 8vw, 52px); letter-spacing: 4px; color: #fff; line-height: 1;
+}
+.section-title em { font-style: normal; color: transparent; -webkit-text-stroke: 1.5px rgba(0,255,179,0.7); }
+.section-rule { width: 70px; height: 2px; background: linear-gradient(90deg, transparent, var(--purple2), var(--green2), transparent); margin: 14px auto 0; }
+
+/* ══════════════════════
+   GRID
+══════════════════════ */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 18px; position: relative; z-index: 10; padding-bottom: 20px;
 }
 
-.product-card:hover .card-border {
-  border-color: var(--c-accent, var(--purple2));
-  box-shadow: inset 0 0 30px rgba(124,45,232,0.05);
+/* ══════════════════════
+   CARD
+══════════════════════ */
+.card {
+  position: relative; border-radius: 18px; overflow: hidden;
+  text-decoration: none; color: #fff; display: block;
+  animation: fadeUp 0.5s ease both;
+  transition: transform 0.3s cubic-bezier(0.22,1,0.36,1), box-shadow 0.3s;
 }
+.card:nth-child(1){animation-delay:.05s} .card:nth-child(2){animation-delay:.10s}
+.card:nth-child(3){animation-delay:.15s} .card:nth-child(4){animation-delay:.20s}
+.card:nth-child(5){animation-delay:.25s} .card:nth-child(6){animation-delay:.30s}
+.card:nth-child(7){animation-delay:.35s}
+.card:hover { transform: translateY(-5px); box-shadow: 0 22px 55px rgba(0,0,0,0.5), 0 0 35px var(--gc, rgba(124,45,232,0.2)); }
 
-.product-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 24px 60px rgba(0,0,0,0.5), 0 0 40px var(--c-glow, rgba(124,45,232,0.2));
+.card-ring {
+  position: absolute; inset: 0; border-radius: 18px;
+  border: 1px solid var(--gc, rgba(124,45,232,0.3));
+  pointer-events: none; z-index: 4; transition: border-color 0.3s;
 }
+.card:hover .card-ring { border-color: var(--gc, var(--purple2)); }
 
-/* Card inner */
-.card-inner {
-  background: linear-gradient(160deg, #0d0d1e 0%, #090912 100%);
-  border-radius: 20px;
-  overflow: hidden;
-  position: relative;
-}
+.card-body { background: linear-gradient(155deg, #0e0c1e 0%, #080810 100%); border-radius: 18px; overflow: hidden; position: relative; }
 
-/* Top color bar */
-.card-bar {
-  height: 3px;
-  background: linear-gradient(90deg, var(--c-accent, var(--purple)), transparent);
-  position: relative;
-}
-.card-bar::after {
-  content: '';
-  position: absolute;
-  right: 0; top: 0;
-  width: 40%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, var(--c-accent2, var(--green2)));
-}
+.card-bar { height: 3px; background: linear-gradient(90deg, var(--gc, var(--purple)), transparent 55%, var(--gc2, var(--green2)) 100%); }
 
-/* Card watermark */
 .card-wm {
-  position: absolute;
-  bottom: -10px;
-  right: -10px;
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 80px;
-  letter-spacing: 2px;
-  color: transparent;
-  -webkit-text-stroke: 1px rgba(255,255,255,0.04);
-  pointer-events: none;
-  user-select: none;
-  line-height: 1;
+  position: absolute; bottom: 0; right: 0;
+  font-family: 'Bebas Neue', sans-serif; font-size: 70px; letter-spacing: 2px;
+  color: transparent; -webkit-text-stroke: 1px rgba(255,255,255,0.04);
+  pointer-events: none; user-select: none; line-height: 1;
 }
-
-/* Diagonal slash on card */
 .card-slash {
-  position: absolute;
-  top: 0; right: 60px;
+  position: absolute; top: 0; right: 55px;
   width: 1px; height: 100%;
-  background: linear-gradient(180deg, transparent, var(--c-accent, rgba(124,45,232,0.15)), transparent);
-  transform: skewX(-12deg);
-  pointer-events: none;
+  background: linear-gradient(180deg, transparent, var(--gc, rgba(124,45,232,0.1)), transparent);
+  transform: skewX(-12deg); pointer-events: none;
 }
 
-.card-content {
-  padding: 22px 22px 20px;
-  position: relative;
-  z-index: 2;
-}
+.card-content { padding: 20px 20px 18px; position: relative; z-index: 2; }
 
-.card-top {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  margin-bottom: 14px;
-}
+.card-top { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 12px; }
+.card-icon { font-size: 30px; line-height: 1; }
 
-.card-icon {
-  font-size: 32px;
-  line-height: 1;
-  filter: drop-shadow(0 0 8px var(--c-accent, rgba(124,45,232,0.6)));
-}
-
-.card-badge {
-  font-family: 'Space Mono', monospace;
-  font-size: 9px;
-  letter-spacing: 1.5px;
-  padding: 4px 10px;
-  border-radius: 100px;
-  background: rgba(0,255,179,0.1);
-  border: 1px solid rgba(0,255,179,0.3);
-  color: var(--green2);
+.cbadge {
+  font-family: 'Space Mono', monospace; font-size: 8.5px; letter-spacing: 1px;
+  padding: 4px 10px; border-radius: 100px;
+  background: rgba(0,255,179,0.1); border: 1px solid rgba(0,255,179,0.3); color: var(--green2);
   white-space: nowrap;
 }
+.cbadge.hot { background: rgba(245,197,24,0.1); border-color: rgba(245,197,24,0.3); color: var(--gold); }
 
-.card-badge.hot {
-  background: rgba(245,197,24,0.1);
-  border-color: rgba(245,197,24,0.3);
-  color: var(--gold);
-}
+.card-title { font-family: 'Bebas Neue', sans-serif; font-size: 26px; letter-spacing: 1.5px; color: #fff; line-height: 1.05; margin-bottom: 12px; }
 
-.card-title {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 28px;
-  letter-spacing: 1.5px;
-  color: #fff;
-  line-height: 1.05;
-  margin-bottom: 14px;
-}
-
-.card-features {
-  list-style: none;
-  margin-bottom: 18px;
-}
-
-.card-features li {
-  font-size: 12.5px;
-  font-weight: 600;
-  color: rgba(200,200,230,0.75);
-  padding: 4px 0;
-  display: flex;
-  align-items: flex-start;
-  gap: 8px;
+.card-feats { list-style: none; margin-bottom: 16px; }
+.card-feats li {
+  font-size: 12.5px; font-weight: 600; color: rgba(200,200,230,0.75);
+  padding: 3px 0; display: flex; align-items: flex-start; gap: 7px;
   line-height: 1.4;
-  letter-spacing: 0.3px;
 }
+.card-feats li i { color: var(--gc, var(--purple2)); font-size: 14px; flex-shrink: 0; margin-top: 1px; font-style: normal; }
 
-.card-features li .arrow {
-  color: var(--c-accent, var(--purple2));
-  font-size: 14px;
-  flex-shrink: 0;
-  margin-top: 1px;
-  font-style: normal;
-}
+.price-row { display: flex; align-items: flex-end; gap: 10px; margin-bottom: 14px; }
+.price-main { font-family: 'Bebas Neue', sans-serif; font-size: 44px; line-height: 1; color: var(--gc, var(--purple2)); filter: drop-shadow(0 0 10px var(--gc, rgba(124,45,232,0.5))); }
+.price-sub { display: flex; flex-direction: column; gap: 2px; padding-bottom: 4px; }
+.price-usd { font-family: 'Space Mono', monospace; font-size: 11px; color: var(--muted); }
+.price-label { font-family: 'Space Mono', monospace; font-size: 8.5px; letter-spacing: 1px; color: rgba(112,112,160,0.7); text-transform: uppercase; }
 
-/* Price row */
-.card-price-row {
-  display: flex;
-  align-items: flex-end;
-  gap: 10px;
-  margin-bottom: 16px;
-}
-
-.price-main {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 46px;
-  line-height: 1;
-  color: var(--c-accent, var(--purple2));
-  filter: drop-shadow(0 0 10px var(--c-glow, rgba(124,45,232,0.5)));
-}
-
-.price-meta {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-  padding-bottom: 4px;
-}
-
-.price-usd {
-  font-family: 'Space Mono', monospace;
-  font-size: 12px;
-  color: var(--muted);
-}
-
-.price-period {
-  font-family: 'Space Mono', monospace;
-  font-size: 9px;
-  letter-spacing: 1.5px;
-  color: rgba(112,112,160,0.7);
-  text-transform: uppercase;
-}
-
-/* Buy button */
 .buy-btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  width: 100%;
-  padding: 13px 16px;
-  background: linear-gradient(90deg, var(--c-btn1, #1a0d35), var(--c-btn2, #0d1a2a));
-  border: 1px solid var(--c-accent, rgba(124,45,232,0.5));
-  border-radius: 10px;
-  color: #fff;
-  font-family: 'Rajdhani', sans-serif;
-  font-weight: 700;
-  font-size: 14px;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  transition: background 0.25s, border-color 0.25s, transform 0.1s;
-  position: relative;
-  overflow: hidden;
-}
-
-.buy-btn::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.05), transparent);
-  transform: translateX(-100%);
-  transition: transform 0.5s;
-}
-
-.product-card:hover .buy-btn::before {
-  transform: translateX(100%);
-}
-
-.product-card:hover .buy-btn {
-  background: linear-gradient(90deg, var(--c-btn2, #0d1a2a), var(--c-btn1, #1a0d35));
-  border-color: var(--c-accent, var(--purple2));
-}
-
-.btn-arrow {
-  font-size: 18px;
-  line-height: 1;
-  transition: transform 0.2s;
-}
-.product-card:hover .btn-arrow { transform: translateX(4px); }
-
-/* ─── GMAIL FOR RENT SECTION ─── */
-.gmail-section {
-  margin: 64px 0 20px;
-  position: relative;
-  border-radius: 24px;
-  overflow: hidden;
-  border: 1px solid rgba(124,45,232,0.4);
-  background: linear-gradient(140deg, #0a0418 0%, #06020f 50%, #0b0617 100%);
-  box-shadow: 0 0 60px rgba(124,45,232,0.15), inset 0 0 80px rgba(80,20,160,0.08);
-}
-
-.gmail-glow-bg {
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(ellipse 60% 50% at 15% 50%, rgba(124,45,232,0.22) 0%, transparent 70%),
-    radial-gradient(ellipse 50% 60% at 85% 50%, rgba(100,30,200,0.18) 0%, transparent 70%);
-  pointer-events: none;
-}
-
-.gmail-slash {
-  position: absolute;
-  width: 1px;
-  height: 150%;
-  top: -25%;
-  background: linear-gradient(180deg, transparent, rgba(124,45,232,0.5), rgba(0,255,179,0.25), transparent);
-  pointer-events: none;
-}
-.gmail-slash-1 { left: 18%; transform: rotate(12deg); }
-.gmail-slash-2 { right: 18%; transform: rotate(-12deg); }
-
-.gmail-inner {
-  position: relative;
-  z-index: 2;
-  padding: 48px 32px 40px;
-  text-align: center;
-}
-
-.gmail-wm {
-  position: absolute;
-  top: -10px;
-  left: 50%;
-  transform: translateX(-50%);
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: clamp(80px, 20vw, 200px);
-  letter-spacing: 8px;
-  color: transparent;
-  -webkit-text-stroke: 1px rgba(124,45,232,0.1);
-  pointer-events: none;
-  user-select: none;
-  white-space: nowrap;
-  line-height: 1;
-}
-
-.gmail-label {
-  font-family: 'Space Mono', monospace;
-  font-size: 11px;
-  letter-spacing: 4px;
-  color: var(--purple2);
-  margin-bottom: 12px;
-  animation: badgePulse 2.5s ease-in-out infinite;
-}
-
-.gmail-title {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: clamp(56px, 12vw, 110px);
-  line-height: 0.92;
-  letter-spacing: 4px;
-  color: #fff;
-  margin-bottom: 18px;
-  filter: drop-shadow(0 0 30px rgba(124,45,232,0.5));
-  animation: logoReveal 0.7s cubic-bezier(0.22,1,0.36,1) both;
-}
-
-.gmail-title-g {
-  color: transparent;
-  -webkit-text-stroke: 3px #fff;
-  filter: drop-shadow(0 0 20px rgba(255,255,255,0.6));
-}
-
-.gmail-title-outline {
-  color: transparent;
-  -webkit-text-stroke: 2px rgba(168,85,247,0.85);
-  display: inline-block;
-}
-
-.gmail-sub {
-  font-size: 14px;
-  font-weight: 600;
-  letter-spacing: 2px;
-  color: rgba(200,200,240,0.7);
-  text-transform: uppercase;
-  margin-bottom: 28px;
-}
-
-.gmail-platforms {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 10px;
-  margin-bottom: 32px;
-}
-
-.gp-pill {
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  width: 100%; padding: 13px 16px;
+  border: 1px solid var(--gc, rgba(124,45,232,0.5)); border-radius: 10px;
   background: rgba(255,255,255,0.04);
-  border: 1px solid rgba(124,45,232,0.35);
-  border-radius: 10px;
-  padding: 8px 16px;
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 1px;
-  color: rgba(220,200,255,0.85);
-  transition: border-color 0.2s, background 0.2s, transform 0.15s;
-  cursor: default;
+  color: #fff; font-family: 'Rajdhani', sans-serif;
+  font-weight: 700; font-size: 13px; letter-spacing: 2.5px; text-transform: uppercase;
+  position: relative; overflow: hidden;
+  transition: background 0.25s, border-color 0.25s;
 }
-.gp-pill:hover {
-  border-color: var(--purple2);
-  background: rgba(124,45,232,0.12);
-  transform: translateY(-2px);
+.buy-btn::before {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.06), transparent);
+  transform: translateX(-100%); transition: transform 0.5s;
 }
+.card:hover .buy-btn::before { transform: translateX(100%); }
+.card:hover .buy-btn { background: rgba(255,255,255,0.07); border-color: var(--gc, var(--purple2)); }
+.btn-arr { font-size: 16px; transition: transform 0.2s; }
+.card:hover .btn-arr { transform: translateX(4px); }
 
-.gmail-cta-row {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 14px;
-}
-
-.gmail-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  background: linear-gradient(90deg, #c9a800, #e8c300, #c9a800);
-  background-size: 200% auto;
-  color: #0a0800;
-  font-family: 'Rajdhani', sans-serif;
-  font-weight: 700;
-  font-size: 15px;
-  letter-spacing: 1.5px;
-  padding: 15px 32px;
-  border-radius: 10px;
-  text-decoration: none;
-  text-transform: uppercase;
-  transition: background-position 0.4s, transform 0.15s, box-shadow 0.2s;
-  box-shadow: 0 6px 30px rgba(200,163,0,0.4), 0 0 0 1px rgba(200,163,0,0.3);
-  animation: shimmer 3s linear infinite;
-}
-@keyframes shimmer {
-  0% { background-position: 0% center; }
-  100% { background-position: 200% center; }
-}
-.gmail-btn:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 10px 40px rgba(200,163,0,0.5), 0 0 0 1px rgba(200,163,0,0.4);
-}
-.gmail-btn-icon { font-size: 18px; }
-
-.gmail-limited {
-  font-family: 'Space Mono', monospace;
-  font-size: 11px;
-  letter-spacing: 3px;
-  color: var(--purple2);
-  animation: badgePulse 2.5s ease-in-out infinite;
-}
-
-/* ─── PAYMENT SECTION ─── */
-.payment-section {
-  margin: 60px 0;
-  position: relative;
-}
-
+/* ══════════════════════
+   PAYMENT
+══════════════════════ */
+.payment-sec { padding: 48px 0 20px; position: relative; z-index: 10; }
 .payment-box {
-  background: linear-gradient(135deg, rgba(12,8,30,0.9), rgba(8,12,20,0.9));
-  border: 1px solid rgba(124,45,232,0.25);
-  border-radius: 20px;
-  padding: 36px 32px;
-  text-align: center;
-  position: relative;
-  overflow: hidden;
+  background: linear-gradient(135deg, rgba(10,6,28,0.95), rgba(6,10,20,0.95));
+  border: 1px solid rgba(124,45,232,0.25); border-radius: 20px;
+  padding: 32px 24px; text-align: center; position: relative; overflow: hidden;
+}
+.payment-box::after {
+  content: 'PAYMENT'; position: absolute; bottom: -14px; right: 10px;
+  font-family: 'Bebas Neue', sans-serif; font-size: 90px; letter-spacing: 4px;
+  color: transparent; -webkit-text-stroke: 1px rgba(124,45,232,0.06);
+  pointer-events: none; user-select: none;
+}
+.pay-title { font-family: 'Bebas Neue', sans-serif; font-size: 30px; letter-spacing: 4px; color: #fff; margin-bottom: 6px; }
+.pay-sub { color: var(--muted); font-size: 13px; font-weight: 500; margin-bottom: 24px; }
+.pills { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
+.pill {
+  display: flex; align-items: center; gap: 7px;
+  background: rgba(255,255,255,0.04); border: 1px solid rgba(124,45,232,0.2);
+  border-radius: 100px; padding: 9px 20px;
+  font-size: 13px; font-weight: 600;
+  transition: border-color 0.2s, background 0.2s;
+}
+.pill:hover { border-color: var(--purple2); background: rgba(124,45,232,0.1); }
+.pill.crypto { border-color: rgba(245,197,24,0.3); color: var(--gold); }
+
+/* ══════════════════════
+   RESELLER
+══════════════════════ */
+.resell-sec { padding: 24px 0 52px; position: relative; z-index: 10; }
+.resell-box {
+  background: linear-gradient(135deg, rgba(124,45,232,0.07), rgba(16,163,127,0.05));
+  border: 1px solid rgba(0,255,179,0.18); border-radius: 18px;
+  padding: 26px 24px; display: flex; align-items: center; gap: 18px; flex-wrap: wrap;
+  position: relative; overflow: hidden;
+}
+.resell-box::before {
+  content: ''; position: absolute; top: 0; left: 0; width: 3px; height: 100%;
+  background: linear-gradient(180deg, var(--purple), var(--green2));
+}
+.resell-icon { font-size: 38px; flex-shrink: 0; }
+.resell-ttl { font-family: 'Bebas Neue', sans-serif; font-size: 24px; letter-spacing: 2px; }
+.resell-sub { font-size: 13px; color: var(--muted); font-weight: 500; margin-top: 2px; }
+.resell-btn {
+  margin-left: auto; flex-shrink: 0;
+  background: linear-gradient(90deg, var(--purple3), var(--purple));
+  color: #fff; font-family: 'Rajdhani', sans-serif;
+  font-weight: 700; font-size: 13px; letter-spacing: 2px;
+  padding: 13px 24px; border-radius: 10px; text-decoration: none; white-space: nowrap;
+  box-shadow: 0 4px 20px rgba(124,45,232,0.35);
+  transition: opacity 0.2s, transform 0.1s;
+}
+.resell-btn:hover { opacity:.85; transform:scale(0.98); }
+
+/* ══════════════════════
+   FOOTER
+══════════════════════ */
+footer {
+  border-top: 1px solid rgba(124,45,232,0.18);
+  padding: 26px 16px; text-align: center; position: relative; z-index: 10;
+}
+.foot-logo {
+  font-family: 'Bebas Neue', sans-serif; font-size: 28px; letter-spacing: 5px;
+  background: linear-gradient(90deg, #fff, var(--green2));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  margin-bottom: 8px;
+}
+.foot-copy { font-family: 'Space Mono', monospace; font-size: 10px; letter-spacing: 1px; color: var(--muted); }
+.foot-copy a { color: var(--green2); text-decoration: none; }
+
+/* ══════════════════════
+   RESPONSIVE
+══════════════════════ */
+@media (max-width: 640px) {
+  .grid { grid-template-columns: 1fr; }
+  .price-main { font-size: 38px; }
+  .resell-box { flex-direction: column; text-align: center; }
+  .resell-box::before { width: 100%; height: 3px; }
+  .resell-btn { margin-left: 0; width: 100%; text-align: center; }
+  .char { width: 90px; }
 }
 
-.payment-box::before {
-  content: 'PAYMENT';
-  position: absolute;
-  bottom: -20px; right: -10px;
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 120px;
-  letter-spacing: 4px;
-  color: transparent;
-  -webkit-text-stroke: 1px rgba(124,45,232,0.07);
-  pointer-events: none;
-  user-select: none;
-}
+</style>
+</head>
+<body>
 
-.payment-title {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 32px;
-  letter-spacing: 4px;
-  color: #fff;
-  margin-bottom: 6px;
-}
+<div class="bg-fixed"></div>
+<div class="slashes"></div>
 
-.payment-sub {
-  color: var(--muted);
-  font-size: 13px;
-  font-weight: 500;
-  letter-spacing: 1px;
-  margin-bottom: 28px;
-}
+<!-- ═══════════ HERO ═══════════ -->
+<section class="hero">
 
-.payment-pills {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 12px;
-}
 
-.pay-pill {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  bac
+  <!-- Text content -->
+  <div class="hero-content">
+    <div class="trust-badge">
+      <span class="dot"></span>
+      ✦ LEGIT &amp; TRUSTED SELLER ✦
+    </div>
+
+    <div class="logo-wrap">
+      <div class="logo-wm">TAKUSU</div>
+      <div class="logo">Takusu</div>
+      <svg class="logo-slash-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 80" preserveAspectRatio="none">
+        <defs><filter id="gs"><feGaussianBlur stdDeviation="2.5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
+        <line x1="0" y1="76" x2="300" y2="4" stroke="rgba(0,255,179,0.65)" stroke-width="2.5" filter="url(#gs)"/>
+      </svg>
+    </div>
+
+    <p class="tagline">Premium subscriptions at unbeatable prices</p>
+    <div class="hero-stars">
+      <span>★</span>
+      <span>FAST DELIVERY · REAL SUPPORT · WARRANTY</span>
+      <span>★</span>
+    </div>
+  </div>
+
+</section>
+
+<!-- Promo Banner -->
+<div class="container">
+  <div class="promo-wrap">
+    <div class="promo-box" onclick="window.open('https://t.me/+63TqmL68cjEzMGVl','_blank')">
+      <div class="promo-glow"></div>
+      <div class="promo-inner">
+        <h3>🔥 FREE AI PROMPT SCRIPT — JOIN NOW</h3>
+        <p>Get free ChatGPT &amp; Gemini prompting scripts to maximize your AI tools</p>
+        <a class="promo-btn" href="https://t.me/+63TqmL68cjEzMGVl" target="_blank">JOIN TELEGRAM GROUP →</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ PRODUCTS ═══════════ -->
+<div class="container">
+  <div class="section-head">
+    <div class="section-eye">✦ CATALOG ✦</div>
+    <div class="section-title">OUR <em>PRODUCTS</em></div>
+    <div class="section-rule"></div>
+  </div>
+
+  <div class="grid">
+
+    <!-- ChatGPT Plus -->
+    <a class="card" style="--gc:#10a37f;--gc2:#00ffb3"
+       href="https://telegram.me/takusuu?text=Hi!%20I%20want%20to%20buy%3A%20ChatGPT%20Plus%20Solo%20-%20100php%2F2%24" target="_blank">
+      <div class="card-ring"></div>
+      <div class="card-body">
+        <div class="card-bar"></div><div class="card-slash"></div><div class="card-wm">GPT+</div>
+        <div class="card-content">
+          <div class="card-top"><span class="card-icon">🤖</span><span class="cbadge">✔ 1-DAY WARRANTY</span></div>
+          <div class="card-title">ChatGPT Plus — Solo</div>
+          <ul class="card-feats">
+            <li><i>›</i> Solo account — for your use only</li>
+            <li><i>›</i> Changeable password — full control</li>
+            <li><i>›</i> GPT-4o — fastest &amp; smartest model</li>
+            <li><i>›</i> DALL·E image generation included</li>
+            <li><i>›</i> File uploads, browsing &amp; tools</li>
+            <li><i>›</i> 1-day warranty from delivery</li>
+          </ul>
+          <div class="price-row">
+            <span class="price-main">₱100</span>
+            <div class="price-sub"><span class="price-usd">≈ $2</span><span class="price-label">SOLO / CHANGEABLE PW</span></div>
+          </div>
+          <div class="buy-btn">ORDER VIA TELEGRAM <span class="btn-arr">→</span></div>
+        </div>
+      </div>
+    </a>
+
+    <!-- CapCut Pro -->
+    <a class="card" style="--gc:#f472b6;--gc2:#fbcfe8"
+       href="https://telegram.me/takusuu?text=Hi!%20I%20want%20to%20buy%3A%20CapCut%20Pro%2030%20Days%20-%2050php%2F1%24" target="_blank">
+      <div class="card-ring"></div>
+      <div class="card-body">
+        <div class="card-bar"></div><div class="card-slash"></div><div class="card-wm">CAP</div>
+        <div class="card-content">
+          <div class="card-top"><span class="card-icon">✂️</span><span class="cbadge" style="background:rgba(244,114,182,0.1);border-color:rgba(244,114,182,0.35);color:#f472b6">✔ WARRANTY</span></div>
+          <div class="card-title">CapCut Pro — 30 Days</div>
+          <ul class="card-feats">
+            <li><i>›</i> Remove watermark from all exports</li>
+            <li><i>›</i> AI background remover &amp; smart tools</li>
+            <li><i>›</i> Premium templates, effects &amp; fonts</li>
+            <li><i>›</i> 30 days with warranty</li>
+          </ul>
+          <div class="price-row">
+            <span class="price-main">₱50</span>
+            <div class="price-sub"><span class="price-usd">≈ $1</span><span class="price-label">30 DAYS</span></div>
+          </div>
+          <div class="buy-btn">ORDER VIA TELEGRAM <span class="btn-arr">→</span></div>
+        </div>
+      </div>
+    </a>
+
+    <!-- Surfshark VPN -->
+    <a class="card" style="--gc:#1fd5c2;--gc2:#a7f3ee"
+       href="https://telegram.me/takusuu?text=Hi!%20I%20want%20to%20buy%3A%20Surfshark%20VPN%202%20Months%20-%2050php%2F1%24" target="_blank">
+      <div class="card-ring"></div>
+      <div class="card-body">
+        <div class="card-bar"></div><div class="card-slash"></div><div class="card-wm">VPN</div>
+        <div class="card-content">
+          <div class="card-top"><span class="card-icon">🛡️</span><span class="cbadge" style="background:rgba(31,213,194,0.1);border-color:rgba(31,213,194,0.35);color:#1fd5c2">✔ WARRANTY</span></div>
+          <div class="card-title">Surfshark VPN — 2 Months</div>
+          <ul class="card-feats">
+            <li><i>›</i> 🎮 Lower ping &amp; bypass geo-blocks</li>
+            <li><i>›</i> Hide your real IP — stay anonymous</li>
+            <li><i>›</i> Unlock region-locked games &amp; content</li>
+            <li><i>›</i> Protect all devices — no bandwidth limit</li>
+            <li><i>›</i> 2 months with warranty</li>
+          </ul>
+          <div class="price-row">
+            <span class="price-main">₱50</span>
+            <div class="price-sub"><span class="price-usd">≈ $1</span><span class="price-label">2 MONTHS</span></div>
+          </div>
+          <div class="buy-btn">ORDER VIA TELEGRAM <span class="btn-arr">→</span></div>
+        </div>
+      </div>
+    </a>
+
+    <!-- Grok AI -->
+    <a class="card" style="--gc:#fb923c;--gc2:#fed7aa"
+       href="https://telegram.me/takusuu?text=Hi!%20I%20want%20to%20buy%3A%20Super%20Grok%20AI%20-%20200php%2F3.50%24" target="_blank">
+      <div class="card-ring"></div>
+      <div class="card-body">
+        <div class="card-bar"></div><div class="card-slash"></div><div class="card-wm">GROK</div>
+        <div class="card-content">
+          <div class="card-top"><span class="card-icon">🤖</span><span class="cbadge" style="background:rgba(251,146,60,0.1);border-color:rgba(251,146,60,0.35);color:#fb923c">✔ WARRANTY</span></div>
+          <div class="card-title">Super Grok AI</div>
+          <ul class="card-feats">
+            <li><i>›</i> xAI's Grok — real-time X (Twitter) data</li>
+            <li><i>›</i> Uncensored, unfiltered AI responses</li>
+            <li><i>›</i> Image generation with Aurora</li>
+            <li><i>›</i> Think mode for deep reasoning</li>
+          </ul>
+          <div class="price-row">
+            <span class="price-main">₱200</span>
+            <div class="price-sub"><span class="price-usd">≈ $3.50</span><span class="price-label">MONTHLY</span></div>
+          </div>
+          <div class="buy-btn">ORDER VIA TELEGRAM <span class="btn-arr">→</span></div>
+        </div>
+      </div>
+    </a>
+
+    <!-- Veo3 25K -->
+    <a class="card" style="--gc:#e879f9;--gc2:#f5d0fe"
+       href="https://telegram.me/takusuu?text=Hi!%20I%20want%20to%20buy%3A%20Veo3%20Ultra%2025K%20Credits%2020HR%20Warranty%20-%20199php%2F3.5%24" target="_blank">
+      <div class="card-ring"></div>
+      <div class="card-body">
+        <div class="card-bar"></div><div class="card-slash"></div><div class="card-wm">VEO3</div>
+        <div class="card-content">
+          <div class="card-top"><span class="card-icon">🎬</span><span class="cbadge hot">⏱ 20HR WARRANTY</span></div>
+          <div class="card-title">Veo3 Ultra 25K — 20HR Warranty</div>
+          <ul class="card-feats">
+            <li><i>›</i> ⚡ 25,000 Credits — ready immediately</li>
+            <li><i>›</i> 📦 Pre-made account — no setup needed</li>
+            <li><i>›</i> Access: labs.google/fx/vi/tools/flow</li>
+            <li><i>›</i> 🔍 Check credits on receipt immediately</li>
+            <li><i>›</i> 20-hour warranty from delivery</li>
+          </ul>
+          <div class="price-row">
+            <span class="price-main">₱199</span>
+            <div class="price-sub"><span class="price-usd">≈ $3.50</span><span class="price-label">SOLO / 25K CREDITS</span></div>
+          </div>
+          <div class="buy-btn">ORDER VIA TELEGRAM <span class="btn-arr">→</span></div>
+        </div>
+      </div>
+    </a>
+
+    <!-- Gemini PRO -->
+    <a class="card" style="--gc:#34d399;--gc2:#a7f3d0"
+       href="https://telegram.me/takusuu?text=Hi!%20I%20want%20to%20buy%3A%20Gemini%20PRO%201%20Year%20Own%20Email%20-%20360php%2F6%24" target="_blank">
+      <div class="card-ring"></div>
+      <div class="card-body">
+        <div class="card-bar"></div><div class="card-slash"></div><div class="card-wm">GEM</div>
+        <div class="card-content">
+          <div class="card-top"><span class="card-icon">📱</span><span class="cbadge" style="background:rgba(52,211,153,0.1);border-color:rgba(52,211,153,0.35);color:#34d399">✔ 3 MONTHS WARRANTY</span></div>
+          <div class="card-title">Gemini PRO 1 Year — Own Email</div>
+          <ul class="card-feats">
+            <li><i>›</i> ✉️ Send your own email — your account</li>
+            <li><i>›</i> 📅 Full 1-year Gemini Pro access</li>
+            <li><i>›</i> ✅ Your email, your control</li>
+            <li><i>›</i> 🛡️ 3-month warranty included</li>
+          </ul>
+          <div class="price-row">
+            <span class="price-main">₱360</span>
+            <div class="price-sub"><span class="price-usd">≈ $6</span><span class="price-label">1 YEAR / OWN EMAIL</span></div>
+          </div>
+          <div class="buy-btn">ORDER VIA TELEGRAM <span class="btn-arr">→</span></div>
+        </div>
+      </div>
+    </a>
+
+    <!-- Veo3 45K -->
+    <a class="card" style="--gc:#e879f9;--gc2:#f5d0fe"
+       href="https://telegram.me/takusuu?text=Hi!%20I%20want%20to%20buy%3A%20Veo%203%20Ultra%2045K%20Credits%201%20Month%20-%20699php%2F11.6%24" target="_blank">
+      <div class="card-ring"></div>
+      <div class="card-body">
+        <div class="card-bar"></div><div class="card-slash"></div><div class="card-wm">VEO3</div>
+        <div class="card-content">
+          <div class="card-top"><span class="card-icon">🎥</span><span class="cbadge" style="background:rgba(232,121,249,0.1);border-color:rgba(232,121,249,0.35);color:#e879f9">✔ 7-DAY WARRANTY</span></div>
+          <div class="card-title">Veo 3 Ultra — 45K Credits / 1 Month</div>
+          <ul class="card-feats">
+            <li><i>›</i> ⚗️ 45,000 Credits — valid for 1 month</li>
+            <li><i>›</i> 🚫 No watermark on exports</li>
+            <li><i>›</i> ⚡ Extremely stable performance</li>
+            <li><i>›</i> 📧 Delivery: Email | Password format</li>
+            <li><i>›</i> 🛡️ 7-day warranty for account issues</li>
+          </ul>
+          <div class="price-row">
+            <span class="price-main">₱699</span>
+            <div class="price-sub"><span class="price-usd">≈ $11.60</span><span class="price-label">SOLO / 1 MONTH</span></div>
+          </div>
+          <div class="buy-btn">ORDER VIA TELEGRAM <span class="btn-arr">→</span></div>
+        </div>
+      </div>
+    </a>
+
+  </div>
+
+  <!-- PAYMENT -->
+  <div class="payment-sec">
+    <div class="payment-box">
+      <div class="pay-title">💳 PAYMENT METHODS</div>
+      <p class="pay-sub">We accept the following — no other payment options available</p>
+      <div class="pills">
+        <div class="pill">💙 GCash</div>
+        <div class="pill">🌊 Sea Bank</div>
+        <div class="pill">🟠 GoTyme</div>
+        <div class="pill">🔵 Tonik</div>
+        <div class="pill crypto">₿ Crypto (USDT)</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RESELLER -->
+  <div class="resell-sec">
+    <div class="resell-box">
+      <span class="resell-icon">🤝</span>
+      <div>
+        <div class="resell-ttl">INTERESTED IN RESELLING?</div>
+        <div class="resell-sub">DM us on Telegram to become a reseller and earn commissions</div>
+      </div>
+      <a class="resell-btn" href="https://telegram.me/takusuu?text=Hi!%20I%20am%20interested%20in%20becoming%20a%20reseller." target="_blank">DM FOR RESELLER →</a>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <div class="foot-logo">TAKUSU</div>
+  <p class="foot-copy">© 2025 Takusu — DM us on <a href="https://telegram.me/takusuu" target="_blank">Telegram @takusuu</a> for orders &amp; inquiries</p>
+</footer>
+
+</body>
+</html>
